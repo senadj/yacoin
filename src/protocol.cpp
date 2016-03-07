@@ -3,12 +3,6 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifdef _MSC_VER
-    #include <stdint.h>
-
-    #include "msvc_warnings.push.h"
-#endif
-
 #include "protocol.h"
 #include "util.h"
 #include "netbase.h"
@@ -86,7 +80,7 @@ CAddress::CAddress() : CService()
     Init();
 }
 
-CAddress::CAddress(CService ipIn, uint64 nServicesIn) : CService(ipIn)
+CAddress::CAddress(CService ipIn, uint64_t nServicesIn) : CService(ipIn)
 {
     Init();
     nServices = nServicesIn;
@@ -153,6 +147,4 @@ void CInv::print() const
 {
     printf("CInv(%s)\n", ToString().c_str());
 }
-#ifdef _MSC_VER
-    #include "msvc_warnings.pop.h"
-#endif
+

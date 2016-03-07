@@ -7,7 +7,7 @@ handle those translations.
 Files and Folders
 -----------------
 
-### bitcoin-qt.pro
+### yacoin-qt.pro
 
 This file takes care of generating `.qm` files from `.ts` files. It is mostly
 automated.
@@ -42,18 +42,18 @@ and can be translated.
 Syncing with transifex
 ----------------------
 
-We are using http://transifex.net as a frontend for translating the client.
+We are using http://transifex.com as a frontend for translating the client.
 
-https://www.transifex.net/projects/p/bitcoin/resource/tx/
+https://www.transifex.com/projects/p/yacoin-qt/resource/tx/
 
-The "transifex client" (see: http://help.transifex.net/features/client/)
+The "transifex client" (see: http://help.transifex.com/features/client/)
 will help with fetching new translations from transifex. Use the following
 config to be able to connect with the client.
 
 ### .tx/config
 
     [main]
-    host = https://www.transifex.net
+    host = https://www.transifex.com
 
     [bitcoin.tx]
     file_filter = src/qt/locale/bitcoin_<lang>.ts
@@ -63,7 +63,7 @@ config to be able to connect with the client.
 ### .tx/config (for Windows)
 
     [main]
-    host = https://www.transifex.net
+    host = https://www.transifex.com
 
     [bitcoin.tx]
     file_filter = src\qt\locale\bitcoin_<lang>.ts

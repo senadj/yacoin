@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="yacoin" />
+		<Option makefile="makefile.mingw" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="_main\;mining\;database\;network\;crypto\;" />
+		<Build>
+			<Target title="Release">
+				<Option output="bin/Release/yacoin" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command="$make -f $makefile" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile clean" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="addrman.h">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="alert.cpp" />
+		<Unit filename="alert.h" />
+		<Unit filename="allocators.h" />
+		<Unit filename="base58.h" />
+		<Unit filename="bignum.h" />
+		<Unit filename="bitcoinrpc.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="bitcoinrpc.h">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="checkpoints.cpp" />
+		<Unit filename="checkpoints.h" />
+		<Unit filename="checkqueue.h" />
+		<Unit filename="clientversion.h" />
+		<Unit filename="coincontrol.h" />
+		<Unit filename="compat.h" />
+		<Unit filename="crypter.cpp">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Unit filename="crypter.h">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Unit filename="db.cpp">
+			<Option virtualFolder="database/" />
+		</Unit>
+		<Unit filename="db.h">
+			<Option virtualFolder="database/" />
+		</Unit>
+		<Unit filename="hash.h" />
+		<Unit filename="init.cpp">
+			<Option virtualFolder="_main/" />
+		</Unit>
+		<Unit filename="init.h">
+			<Option virtualFolder="_main/" />
+		</Unit>
+		<Unit filename="irc.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="irc.h">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="kernel.cpp">
+			<Option virtualFolder="mining/" />
+		</Unit>
+		<Unit filename="kernel.h">
+			<Option virtualFolder="mining/" />
+		</Unit>
+		<Unit filename="key.cpp">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Unit filename="key.h">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Unit filename="keystore.cpp">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Unit filename="keystore.h">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Unit filename="main.cpp">
+			<Option virtualFolder="_main/" />
+		</Unit>
+		<Unit filename="main.h">
+			<Option virtualFolder="_main/" />
+		</Unit>
+		<Unit filename="miner.cpp">
+			<Option virtualFolder="mining/" />
+		</Unit>
+		<Unit filename="miner.h">
+			<Option virtualFolder="mining/" />
+		</Unit>
+		<Unit filename="ministun.h">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="mruset.h">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="net.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="net.h">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="netbase.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="netbase.h">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="noui.cpp" />
+		<Unit filename="pbkdf2.cpp">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Unit filename="pbkdf2.h">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Unit filename="protocol.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="protocol.h">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="rpcblockchain.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="rpcdump.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="rpcmining.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="rpcnet.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="rpcrawtransaction.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="rpcwallet.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="script.cpp" />
+		<Unit filename="script.h" />
+		<Unit filename="scrypt-jane/scrypt-jane.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="scrypt-jane/scrypt-jane.h" />
+		<Unit filename="scrypt-x86.S" />
+		<Unit filename="scrypt-x86_64.S" />
+		<Unit filename="scrypt.cpp" />
+		<Unit filename="scrypt.h" />
+		<Unit filename="serialize.h" />
+		<Unit filename="strlcpy.h" />
+		<Unit filename="stun.cpp">
+			<Option virtualFolder="network/" />
+		</Unit>
+		<Unit filename="sync.cpp" />
+		<Unit filename="sync.h" />
+		<Unit filename="timestamps.h" />
+		<Unit filename="txdb-bdb.cpp">
+			<Option virtualFolder="database/" />
+		</Unit>
+		<Unit filename="txdb-bdb.h">
+			<Option virtualFolder="database/" />
+		</Unit>
+		<Unit filename="txdb-leveldb.cpp">
+			<Option virtualFolder="database/" />
+		</Unit>
+		<Unit filename="txdb-leveldb.h">
+			<Option virtualFolder="database/" />
+		</Unit>
+		<Unit filename="txdb.h">
+			<Option virtualFolder="database/" />
+		</Unit>
+		<Unit filename="ui_interface.h" />
+		<Unit filename="uint256.h" />
+		<Unit filename="util.cpp" />
+		<Unit filename="util.h" />
+		<Unit filename="version.cpp" />
+		<Unit filename="version.h" />
+		<Unit filename="wallet.cpp">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Unit filename="wallet.h">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Unit filename="walletdb.cpp">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Unit filename="walletdb.h">
+			<Option virtualFolder="crypto/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

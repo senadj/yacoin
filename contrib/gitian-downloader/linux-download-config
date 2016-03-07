@@ -1,4 +1,6 @@
---- 
+---
+//YACOIN TODO
+ 
 name: bitcoin
 urls:
 - http://bitcoin.org/bitcoin-latest-linux-gitian.zip

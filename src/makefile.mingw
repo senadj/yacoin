@@ -2,24 +2,31 @@
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+# yacoin 4.5 mingw makefile, use with:
+# TDM-GCC GCC 5 Series MinGW 32-bit Edition
+# boost 1.54
+# BerkleyDB db-4.8.30.NC
+# openssl-1.0.1l
+
 CXX ?= g++
 
-USE_UPNP:=-
-USE_IPV6:=1
+USE_UPNP:=1
+USE_LEVELDB:=1
+USE_IPV6:=-
 
-BOOST_SUFFIX?=-mgw48-mt-sd-1_55
+BOOST_SUFFIX?=-mgw51-mt-1_54
 
 INCLUDEPATHS= \
  -I"$(CURDIR)" \
  -I"$(CURDIR)/scrypt-jane" \
- -I"c:/deps/boost_1_55_0" \
- -I"c:/deps/db-4.8.30.NC/build_unix" \
- -I"c:/deps/openssl-1.0.1g"	
+ -I"C:\depsmingw\boost_1_54_0" \
+ -I"C:\depsmingw\db-4.8.30.NC\build_unix" \
+ -I"C:\depsmingw\openssl-1.0.1l\include"
 
 LIBPATHS= \
- -L"c:/deps/boost_1_55_0/stage/lib" \
- -L"c:/deps/db-4.8.30.NC/build_unix" \
- -L"c:/deps/openssl-1.0.1g"
+ -L"C:\depsmingw\boost_1_54_0\stage\lib" \
+ -L"C:\depsmingw\db-4.8.30.NC\build_unix" \
+ -L"C:\depsmingw\openssl-1.0.1l"
 
 LIBS= \
  -l boost_system$(BOOST_SUFFIX) \
@@ -36,12 +43,9 @@ DEFS= \
 	-D_WINDOWS \
 	-DBOOST_THREAD_USE_LIB \
 	-DBOOST_SPIRIT_THREADSAFE \
-	-DSCRYPT_CHACHA \
-	-DSCRYPT_KECCAK512 \
-	-DSCRYPT_CHOOSE_COMPILETIME \
-	-DO2
+	-D__STDC_FORMAT_MACROS
 
-DEBUGFLAGS=-g
+# DEBUGFLAGS=-g
 
 CFLAGS= \
 	-mthreads \
@@ -58,16 +62,14 @@ LDFLAGS= \
 	-Wl,--large-address-aware \
 	-static
 
-TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)
-
 ifndef USE_UPNP
 	override USE_UPNP = -
 endif
 ifneq (${USE_UPNP}, -)
- INCLUDEPATHS += -I"c:/deps/miniupnpc-1.8"
- LIBPATHS += -L"c:/deps/miniupnpc-1.8"
- LIBS += -l miniupnpc -l iphlpapi
- DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
+ INCLUDEPATHS += -I"C:\depsmingw"
+ LIBPATHS += -L"C:\depsmingw\miniupnpc"
+ LIBS += -l miniupnpc -liphlpapi
+ DEFS += -DSTATICLIB -DMINIUPNP_STATICLIB -DUSE_UPNP=$(USE_UPNP)
 endif
 
 ifneq (${USE_IPV6}, -)
@@ -89,76 +91,83 @@ LIBS += \
 	-l rpcrt4 \
 	-l advapi32 \
 	-l ws2_32 \
-	-l mswsock \
-	-l shlwapi
+	-l mswsock
 
 # TODO: make the mingw builds smarter about dependencies, like the linux/osx builds are
 HEADERS = $(wildcard *.h)
 
 OBJS= \
-    obj/addrman.o \
     obj/alert.o \
-    obj/bitcoinrpc.o \
+    obj/version.o \
     obj/checkpoints.o \
+    obj/netbase.o \
+    obj/addrman.o \
     obj/crypter.o \
+    obj/key.o \
     obj/db.o \
     obj/init.o \
-  obj/irc.o \
-  obj/kernel.o \
-    obj/key.o \
+    obj/irc.o \
     obj/keystore.o \
     obj/main.o \
+    obj/miner.o \
     obj/net.o \
-    obj/netbase.o \
-    obj/noui.o \
-  obj/pbkdf2.o \
+    obj/stun.o \
     obj/protocol.o \
-    obj/rpcblockchain.o \
+    obj/bitcoinrpc.o \
     obj/rpcdump.o \
-    obj/rpcmining.o \
     obj/rpcnet.o \
-    obj/rpcrawtransaction.o \
+    obj/rpcmining.o \
     obj/rpcwallet.o \
+    obj/rpcblockchain.o \
+    obj/rpcrawtransaction.o \
     obj/script.o \
-  obj/scrypt-jane.o \
-  obj/scrypt_mine.o \
-  obj/scrypt-x86.o \
+	obj/scrypt-jane.o \
     obj/sync.o \
     obj/util.o \
-    obj/version.o \
     obj/wallet.o \
-    obj/walletdb.o 
+    obj/walletdb.o \
+    obj/noui.o \
+    obj/kernel.o \
+    obj/pbkdf2.o \
+	obj/scrypt.o \
+	obj/scrypt-x86.o \
+	obj/scrypt-x86_64.o
 
 all: yacoind.exe
 
-test check: test_yacoin.exe FORCE
-	test_yacoin.exe
+#
+# LevelDB support, with mingw shlwapi lib must come at the end!
+#
+LIBS += $(CURDIR)/leveldb/libleveldb.a $(CURDIR)/leveldb/libmemenv.a -l shlwapi
+DEFS += $(addprefix -I,$(CURDIR)/leveldb/include) -DUSE_LEVELDB
+DEFS += $(addprefix -I,$(CURDIR)/leveldb/helpers)
+OBJS += obj/txdb-leveldb.o
 
-DEFS += $(addprefix -I,c:/deps/openssl-1.0.1g/include)
+leveldb/libleveldb.a:
+	cd leveldb; make libleveldb.a libmemenv.a; cd ..
 
-obj/scrypt-jane.o: scrypt-jane/scrypt-jane.c 
-	g++ -c -frandom-seed=$@ $(CFLAGS) -MMD -o $@ $<
+obj/txdb-leveldb.o: leveldb/libleveldb.a
 
 obj/%.o: %.cpp $(HEADERS)
 	g++ -c -frandom-seed=$@ $(CFLAGS) -o $@ $<
 
 obj/scrypt-x86.o: scrypt-x86.S
-	$(CXX) -c -frandom-seed=$@ $(xCXXFLAGS) -MMD -o $@ $<
+	g++ -c -frandom-seed=$@ $(CFLAGS) -o $@ $<
+
+obj/scrypt-x86_64.o: scrypt-x86_64.S
+	g++ -c -frandom-seed=$@ $(CFLAGS) -o $@ $<
+
+obj/scrypt-jane.o: scrypt-jane/scrypt-jane.c
+	gcc -c -O3 -msse2 -DSCRYPT_CHACHA -DSCRYPT_KECCAK512 -DSCRYPT_CHOOSE_COMPILETIME -o obj/scrypt-jane.o scrypt-jane/scrypt-jane.c
 
 yacoind.exe: $(OBJS:obj/%=obj/%)
 	g++ $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
-
-TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
-
-obj-test/%.o: test/%.cpp $(HEADERS)
-	g++ -c $(TESTDEFS) $(CFLAGS) -o $@ $<
-
-test_yacoin.exe: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
-	g++ $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ -lboost_unit_test_framework$(BOOST_SUFFIX) $(LIBS)
+	strip yacoind.exe
 
 clean:
-	-del /Q yacoind test_yacoin
-	-del /Q obj\*
-	-del /Q obj-test\*
+	rm -f yacoind.exe
+	find . -name *.a | xargs rm -f
+	find leveldb -name *.o | xargs rm -f
+	find obj -name *.o | xargs rm -f
 
 FORCE:

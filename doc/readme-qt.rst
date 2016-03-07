@@ -1,7 +1,7 @@
 NOTE: These instructions are out of date and are here for reference only.
 Find updated instructions in build-msw.txt.
 
-yacoin-qt: Qt4 GUI for Bitcoin
+yacoin-qt: Qt4 GUI for Yacoin
 ===============================
 
 Build instructions

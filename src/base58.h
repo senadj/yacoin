@@ -51,7 +51,7 @@ inline std::string EncodeBase58(const unsigned char* pbegin, const unsigned char
         if (!BN_div(&dv, &rem, &bn, &bn58, pctx))
             throw bignum_error("EncodeBase58 : BN_div failed");
         bn = dv;
-        unsigned int c = rem.getulong();
+        unsigned int c = rem.getuint32();
         str += pszBase58[c];
     }
 
@@ -94,7 +94,7 @@ inline bool DecodeBase58(const char* psz, std::vector<unsigned char>& vchRet)
                 return false;
             break;
         }
-        bnChar.setulong(p1 - pszBase58);
+        bnChar.setuint32((uint32_t)(p1 - pszBase58));
         if (!BN_mul(&bn, &bn, &bn58, pctx))
             throw bignum_error("DecodeBase58 : BN_mul failed");
         bn += bnChar;
@@ -404,18 +404,7 @@ class CBitcoinSecret : public CBase58Data
 public:
     void SetSecret(const CSecret& vchSecret, bool fCompressed)
     {
-#ifdef _MSC_VER
-        bool
-            fTest = (32 == vchSecret.size());
-    #ifdef _DEBUG
-        assert(fTest);
-    #else
-        if( !fTest )
-            releaseModeAssertionfailure( __FILE__, __LINE__, __PRETTY_FUNCTION__ );
-    #endif
-#else
         assert(vchSecret.size() == 32);
-#endif
         SetData(128 + (fTestNet ? CBitcoinAddress::PUBKEY_ADDRESS_TEST : CBitcoinAddress::PUBKEY_ADDRESS), &vchSecret[0], vchSecret.size());
         if (fCompressed)
             vchData.push_back(1);
