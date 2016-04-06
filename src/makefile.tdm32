@@ -8,7 +8,7 @@ USE_UPNP:=1
 USE_LEVELDB:=1
 USE_IPV6:=-
 
-# BOOST_SUFFIX?=-mgw51-mt-1_58
+BOOST_SUFFIX:=$(YBOOSUFFIX)
 
 INCLUDEPATHS= \
  -I"$(CURDIR)" \
@@ -61,8 +61,8 @@ ifndef USE_UPNP
 	override USE_UPNP = -
 endif
 ifneq (${USE_UPNP}, -)
- INCLUDEPATHS += -I"D:\PortableGit\base\deps\miniupnpc-1.9.20150206"
- LIBPATHS += -L"D:\PortableGit\base\deps\miniupnpc-1.9.20150206"
+ INCLUDEPATHS += -I"$(YUPNP)"
+ LIBPATHS += -L"$(YUPNP)"
  LIBS += -l miniupnpc -liphlpapi
  DEFS += -DSTATICLIB -DMINIUPNP_STATICLIB -DUSE_UPNP=$(USE_UPNP)
 endif
