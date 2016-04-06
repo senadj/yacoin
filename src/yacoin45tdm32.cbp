@@ -2,15 +2,18 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="yacoin" />
-		<Option makefile="makefile.mingw" />
+		<Option title="yacoin45tdm32" />
+		<Option makefile="makefile.tdm32" />
 		<Option makefile_is_custom="1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Compiler>
+				<Add option="-DWIN32" />
+		</Compiler>		
 		<Option virtualFolders="_main\;mining\;database\;network\;crypto\;" />
 		<Build>
 			<Target title="Release">
-				<Option output="bin/Release/yacoin" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/yacoin45tdm32" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
